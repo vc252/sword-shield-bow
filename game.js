@@ -49,7 +49,7 @@ function handleClickEvent(element) {
     let humanChoice = String(element.target.getAttribute("class"));
     playRound(humanChoice,getComputerChoice());
     roundsPlayed++;
-    if(roundsPlayed>gameRounds) {
+    if(roundsPlayed>=gameRounds) {
         let message;
         if (humanScore>computerScore) {
             playWinSound();
