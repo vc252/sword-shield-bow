@@ -1,6 +1,8 @@
+
 let computerScore = 0;
 let humanScore = 0;
 let roundsPlayed = 0;
+let clickSound;
 let gameRounds;
 function getComputerChoice() {
     const choices = ["sword","shield","bow"];
@@ -43,6 +45,7 @@ function playRound(humanChoice,computerChoice) {
 }
 
 function handleClickEvent(element) {
+    playClickSound(clickSound);
     if (roundsPlayed<gameRounds) {
         let humanChoice = String(element.target.getAttribute("class"));
         playRound(humanChoice,getComputerChoice());
@@ -50,8 +53,10 @@ function handleClickEvent(element) {
     } else {
         let message;
         if (humanScore>computerScore) {
+            playWinSound();
             message = "YOU WON !!!!"
         } else if (humanScore<computerScore) {
+            playLoseSound();
             message = "ha you LOST by random AI!"
         } else {
             message = "that's a TIE nothing to be happy about";
@@ -74,11 +79,32 @@ function startGame() {
     })
 }
 
+function playClickSound(clickSound) {
+    clickSound.currentTime = 0; // Rewind to start to allow rapid replay
+    clickSound.play();
+}
+
+function playWinSound() {
+    const winSound = document.getElementById("winnersound");
+    winSound.play();
+}
+
+function playLoseSound() {
+    const loseSound = document.getElementById("losersound");
+    loseSound.play();
+}
+
 function main() {
+    clickSound = document.querySelector("audio#clickSound");
     let button = document.querySelector("#start-screen button");
     
     button.addEventListener("click",()=>{
+        document.querySelector("audio#bgMusic").play().catch(error => {
+            console.error("Autoplay was prevented:", error);
+            // Handle autoplay prevention here (e.g., show a play button)
+        });
         setTimeout(()=>{
+            playClickSound(clickSound);
             document.body.style.backgroundPosition = "center +100px";
             document.querySelector("#start-screen").classList.remove("active");
             document.querySelector("#round-screen").classList.add("active");
@@ -88,6 +114,7 @@ function main() {
     
     button.addEventListener("click",()=>{
         setTimeout(()=>{
+            playClickSound(clickSound);
             gameRounds = document.querySelector("input").value;
             if (gameRounds>0) {
                 document.body.style.backgroundPosition = "center";
