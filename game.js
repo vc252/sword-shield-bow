@@ -1,3 +1,7 @@
+let computerScore = 0;
+let humanScore = 0;
+let roundsPlayed = 0;
+let gameRounds;
 function getComputerChoice() {
     const choices = ["sword","shield","bow"];
     Object.freeze(choices);
@@ -5,61 +9,96 @@ function getComputerChoice() {
     return choices[index];
 }
 
-function getHumanChoice() {
-    const choices = ["sword","shield","bow"];
-    Object.freeze(choices);
-    let choice = String(prompt("Enter your choice"));
-    if (!choices.includes(choice.toLowerCase())) {
-        alert("Enter a valid input");
-        return;
-    }
-    return choice;
+function selectButton(computerChoice) {
+    document.querySelector(".computer-card ."+computerChoice).classList.add("opacity");
+}
+
+function diselectButton(computerChoice) {
+    document.querySelector(".computer-card ."+computerChoice).classList.remove("opacity");
 }
 
 function playRound(humanChoice,computerChoice) {
     humanChoice = humanChoice.toLowerCase();
     computerChoice = computerChoice.toLowerCase();
+    selectButton(computerChoice);
+    setTimeout(()=>{
+        diselectButton(computerChoice);
+    },200)
     if (humanChoice === computerChoice) {
-        return "tie";
-    }
-    if (
+        humanScore++;
+        computerScore++;
+        document.querySelector(".player-card p").textContent = `SCORE: ${humanScore}`;
+        document.querySelector(".computer-card p").textContent = `SCORE: ${computerScore}`;
+    } else if (
         (humanChoice === "sword" && computerChoice === "bow") ||
         (humanChoice === "bow" && computerChoice === "shield") ||
         (humanChoice === "shield" && computerChoice === "sword")
     ) {
-        return "human";
+        humanScore++;
+        document.querySelector(".player-card p").textContent = `SCORE: ${humanScore}`;
     } else {
-        return "computer";
+        computerScore++;
+        document.querySelector(".computer-card p").textContent = `SCORE: ${computerScore}`;
     }
 }
 
-function game() {
-    let computerScore = 0;
-    let humanScore = 0;
-    let rounds = parseInt(prompt("Enter number of rounds to be played",5));
-    for (i = 0; i<rounds; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        alert(`computer playes: ${computerChoice}`);
-        let result = playRound(humanChoice,computerChoice);
-        if (result === "human") {
-            humanScore++;
-        } else if (result === "computer") {
-            computerScore++;
+function handleClickEvent(element) {
+    if (roundsPlayed<gameRounds) {
+        let humanChoice = String(element.target.getAttribute("class"));
+        playRound(humanChoice,getComputerChoice());
+        roundsPlayed++;
+    } else {
+        let message;
+        if (humanScore>computerScore) {
+            message = "YOU WON !!!!"
+        } else if (humanScore<computerScore) {
+            message = "ha you LOST by random AI!"
         } else {
-            humanScore++;
-            computerScore++;
+            message = "that's a TIE nothing to be happy about";
         }
-        console.log(`You:${humanScore} Computer:${computerScore}`)
-    }
-    
-    if (humanScore>computerScore) {
-        console.log("you win");
-    } else if (humanScore<computerScore) {
-        console.log("you lose");
-    } else {
-        console.log("that's a tie");
+        displayMessage(message);
     }
 }
 
-game();
+function displayMessage(message) {
+    document.querySelector(".overlay").classList.add("active");
+    document.querySelector(".overlay").textContent = message;
+}
+
+function startGame() {
+    gameRounds = parseInt(gameRounds);
+    let buttons = document.querySelectorAll("#player-options");
+    
+    buttons.forEach((element)=>{
+        element.addEventListener("click",handleClickEvent);
+    })
+}
+
+function main() {
+    let button = document.querySelector("#start-screen button");
+    
+    button.addEventListener("click",()=>{
+        setTimeout(()=>{
+            document.body.style.backgroundPosition = "center +100px";
+            document.querySelector("#start-screen").classList.remove("active");
+            document.querySelector("#round-screen").classList.add("active");
+        },400);
+    });
+    button = document.querySelector("#round-screen button");
+    
+    button.addEventListener("click",()=>{
+        setTimeout(()=>{
+            gameRounds = document.querySelector("input").value;
+            if (gameRounds>0) {
+                document.body.style.backgroundPosition = "center";
+                document.querySelector("#round-screen").classList.remove("active");
+                document.querySelector("#game-screen").classList.add("active");
+                startGame();
+            } else {
+                alert("Enter a valid number");
+            }
+        },200);
+    });
+}
+
+main();

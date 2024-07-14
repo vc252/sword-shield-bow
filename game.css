@@ -1,0 +1,205 @@
+* {
+    font-family: 'Press Start 2P', cursive;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("./images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center +200px;
+    padding: 100px;
+    transition: background-position 0.5s ease-in-out;
+}
+html {
+    height: 100%;
+}
+
+.header {
+    background-color: black;
+    color: wheat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    right: 0px;
+    border-bottom:solid;
+    border-width: 6px;
+    font-size: 18px;
+    height: 200px;
+}
+#start-screen {
+    flex: 1;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+}
+#start-screen.active {
+    display: flex;
+}
+#start-screen button {
+    padding: 30px 60px;
+    font-size: larger;
+    border-radius: 10px;
+    box-shadow: 4px 8px rgba(0, 0, 0, 1);
+    transition: all 0.2s ease-out;
+    border: solid;
+    border-width: 6px;
+    background-color: black;
+    color: wheat;
+    opacity: .8;
+}
+#start-screen button:active {
+    transform: translateX(4px) translateY(8px);
+    box-shadow: none;
+}
+#round-screen {
+    display: none;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 100px;
+}
+.container {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 600px;
+    padding: 60px 70px 90px 100px;
+    color: wheat;
+    border: solid;
+    border-radius: 10px;
+    border-width: 6px;
+    box-shadow: 0px 0px 40px rgba(0,0,0, 0.8);
+    font-size: 16px;
+}
+#round-screen.active {
+    display: flex;
+}
+#input {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding-left: 7px;
+    border: solid;
+    border-color: rgb(239, 202, 134);
+    border-width: 6px;
+}
+
+#round-screen button {
+    padding: 15px 25px;
+    font-size: large;
+    border-radius: 10px;
+    margin-top: 28px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    border: solid;
+    border-width: 4px;
+    border-color: rgb(251, 193, 84);
+}
+
+#round-screen button:active {
+    opacity: 0.9;
+}
+
+#game-screen {
+    display: none;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+#game-screen.active {
+    display: flex;
+}
+.player-card, .computer-card {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-width: 2px;
+    border-radius: 8px;
+    padding: 50px;
+    margin: 100px;
+    width: 400px;
+    background-color: black;
+    color: wheat;
+}
+
+.choices {
+    display: flex;
+    font-size: 20px;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.sword, .shield, .bow {
+    border: solid;
+    border-width: 6px;
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+    background-size: contain;
+    border-color: rgb(212, 151, 75);
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+
+.sword:hover, .shield:hover, .bow:hover {
+    transform: scale(1.1);
+    transition: all 0.1s ease-in;
+}
+
+.sword:active, .shield:active, .bow:active {
+    transform: scale(.95);
+    opacity: .6;
+}
+
+.sword {
+    background-image: url("./images/sword.jpg");
+}
+
+.shield {
+    background-image: url("./images/shield.jpg");
+}
+
+.bow {
+    background-image: url('./images/bow.jpg');
+}
+
+.opacity {
+    opacity: .6;
+    transform: scale(0.9);
+}
+
+.overlay {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: .8;
+    background-color: black;
+    z-index: 100;
+    font-size: xx-large;
+    color: white;
+}
+
+.overlay.active {
+    display: flex;
+}
+

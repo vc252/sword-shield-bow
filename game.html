@@ -5,8 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./game.js" defer></script>
+    <link rel="stylesheet" href="./game.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+    <div class="header">
+        <h1>
+            SWORD | SHIELD | BOW
+        </h1>
+        <P>
+            <em>the ultimate showdown</em>
+        </P>
+        <p>
+            sword beats bow | bow beats shield | shield beats sword
+        </p>
+    </div>
+    <div id="start-screen" class="active">
+        <button>START</button>
+    </div>
+    <div id="round-screen" >
+        <div class="container">
+            <div id="input">
+                <h2>Enter number of rounds</h2>
+                <input type="text" placeholder="0">
+            </div>
+            <button>DONE</button>
+        </div>
+    </div>
+    <div id="game-screen" >
+        <div class="player-card">
+            <h2>PLAYER</h2>
+            <p>SCORE: 0</p>
+            <div class="choices" id="player-options">
+                <div class="sword"></div>
+                <div class="shield"></div>
+                <div class="bow"></div>
+            </div>
+        </div>
+        <div class="computer-card">
+            <h2>COMPUTER</h2>
+            <p>SCORE: 0</p>
+            <div class="choices">
+                <div class="sword"></div>
+                <div class="shield"></div>
+                <div class="bow"></div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay">
+        message
+    </div>
 </body>
 </html>
