@@ -46,11 +46,10 @@ function playRound(humanChoice,computerChoice) {
 
 function handleClickEvent(element) {
     playClickSound(clickSound);
-    if (roundsPlayed<gameRounds) {
-        let humanChoice = String(element.target.getAttribute("class"));
-        playRound(humanChoice,getComputerChoice());
-        roundsPlayed++;
-    } else {
+    let humanChoice = String(element.target.getAttribute("class"));
+    playRound(humanChoice,getComputerChoice());
+    roundsPlayed++;
+    if(roundsPlayed>gameRounds) {
         let message;
         if (humanScore>computerScore) {
             playWinSound();
